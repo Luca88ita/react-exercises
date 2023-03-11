@@ -8,7 +8,7 @@ import ExpensesFilter from "./ExpensesFilter";
 const Expenses = (props) => {
   const [filteredYear, setFilteredYear] = useState("2023");
 
-  let expArray = props.expenses;
+  /*let expArray = props.expenses;
   const toReturn = [];
 
   expArray.forEach((element) => {
@@ -20,7 +20,7 @@ const Expenses = (props) => {
         key={element.id}
       />
     );
-  });
+  });*/
 
   const saveYearHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
@@ -32,7 +32,15 @@ const Expenses = (props) => {
         selectedYear={filteredYear}
         onYearChange={saveYearHandler}
       />
-      {toReturn}
+      {props.expenses.map((expense) => (
+        <ExpenseItem
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
+          key={expense.id}
+        />
+      ))}
+      {/*toReturn*/}
     </Card>
   );
 };
