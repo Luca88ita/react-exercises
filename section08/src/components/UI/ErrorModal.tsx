@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import styles from './ErrorModal.module.css';
 import Card from './Card';
 import Button from './Button';
