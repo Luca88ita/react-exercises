@@ -25,7 +25,7 @@ const AddUser = ({ addUser }: PropsType) => {
 	const addUserHandler = (e: FormEvent<HTMLFormElement>) => {
 		//prevengo la ricarica della pagina quando premo un pulsante di tipo submit
 		e.preventDefault();
-		// verifico che username ed età siano state inizializzati
+		// verifico che username ed età siano stati inizializzati
 		if (username.trim().length === 0 || age === 0) {
 			setError({
 				title: 'Invalid username and age',
@@ -57,8 +57,8 @@ const AddUser = ({ addUser }: PropsType) => {
 
 	const content = (
 		<div className={styles.addUser}>
-			{error !== null && <ErrorModal error={error} />}
-			<Card>
+			{error && <ErrorModal error={error} />}
+			<Card className={styles.addUser}>
 				<form onSubmit={addUserHandler}>
 					<label htmlFor='username'>Username</label>
 					<input

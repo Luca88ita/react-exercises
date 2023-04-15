@@ -14,7 +14,7 @@ type PropsType = {
 
 const ErrorModal = ({ error }: PropsType) => {
 	const content = (
-		<>
+		<div>
 			{/* questo è il div che conterrà lo sfondo nero per il messaggio d`errore */}
 			<div className={styles.backdrop} onClick={error.onConfirm}></div>
 			{/* mentre questa è la card col messaggio d`errore vero e proprio */}
@@ -29,7 +29,7 @@ const ErrorModal = ({ error }: PropsType) => {
 					<Button onClick={error.onConfirm}>OK</Button>
 				</footer>
 			</Card>
-		</>
+		</div>
 	);
 
 	return content;
