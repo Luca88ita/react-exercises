@@ -7,16 +7,20 @@ type PropsType = {
 };
 
 const UserList = ({ usersList }: PropsType) => {
-	const content = usersList.length !== 0 && (
-		<Card className={styles.userList}>
-			<ul>
-				{usersList.map((user) => (
-					<li key={Math.random()}>
-						{user.username} ({user.age} years old)
-					</li>
-				))}
-			</ul>
-		</Card>
+	const content = (
+		<>
+			{usersList.length !== 0 && (
+				<Card className={styles.userList}>
+					<ul>
+						{usersList.map((user) => (
+							<li key={Math.random()}>
+								{user.username} ({user.age} years old)
+							</li>
+						))}
+					</ul>
+				</Card>
+			)}
+		</>
 	);
 
 	return content;
