@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
+import {
+	ChangeEvent,
+	FormEvent,
+	ReactElement,
+	useEffect,
+	useState,
+} from 'react';
 
 import Card from '../UI/Card/Card';
 import styles from './Login.module.css';
@@ -15,20 +21,23 @@ const Login = ({ onLogin }: PropsType): ReactElement => {
 	const [passwordIsValid, setPasswordIsValid] = useState<boolean>();
 	const [formIsValid, setFormIsValid] = useState<boolean>(false);
 
+	useEffect(() => {
+		const identifier = setTimeout(() => {
+			setFormIsValid(
+				enteredEmail.includes('@') && enteredPassword.trim().length > 6
+			);
+		}, 500); /* we set a timer of 500 seconds after the last click //*/
+		return () => {
+			clearTimeout(identifier); /* we clean up the old timer with a new one //*/
+		}; /* cleanup function which does a cleanup process before the execute effect executes the function the next time //*/
+	}, [enteredEmail, enteredPassword]);
+
 	const emailChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		setEnteredEmail(event.target.value);
-
-		setFormIsValid(
-			event.target.value.includes('@') && enteredPassword.trim().length > 6
-		);
 	};
 
 	const passwordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		setEnteredPassword(event.target.value);
-
-		setFormIsValid(
-			event.target.value.trim().length > 6 && enteredEmail.includes('@')
-		);
 	};
 
 	const validateEmailHandler = () => {
