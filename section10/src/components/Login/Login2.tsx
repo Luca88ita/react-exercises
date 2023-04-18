@@ -2,6 +2,7 @@ import {
 	ChangeEvent,
 	FormEvent,
 	ReactElement,
+	useEffect,
 	useReducer,
 	useState,
 } from 'react';
@@ -50,7 +51,7 @@ const passwordReducer = (
 };
 
 const Login2 = ({ onLogin }: PropsType): ReactElement => {
-	const [formIsValid, setFormIsValid] = useState<boolean>(false);
+	const [formIsValid, setFormIsValid] = useState<boolean | null>(null);
 
 	const [emailState, dispatchEmail] = useReducer(emailReducer, {
 		value: '',
@@ -61,6 +62,18 @@ const Login2 = ({ onLogin }: PropsType): ReactElement => {
 		value: '',
 		isValid: null,
 	});
+
+	const { isValid: emailIsValid } = emailState;
+	const { isValid: passwordIsValid } = passwordState;
+
+	useEffect(() => {
+		const identifier = setTimeout(() => {
+			setFormIsValid(emailIsValid && passwordIsValid);
+		}, 500); /* we set a timer of 500 seconds after the last click //*/
+		return () => {
+			clearTimeout(identifier); /* we clean up the old timer with a new one //*/
+		}; /* cleanup function which does a cleanup process before the execute effect executes the function the next time //*/
+	}, [emailIsValid, passwordIsValid]);
 
 	const emailChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
