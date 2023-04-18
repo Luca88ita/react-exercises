@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
+import Login2 from './components/Login/Login2';
 
 const App = (): ReactElement => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,7 +32,7 @@ const App = (): ReactElement => {
 		<>
 			<MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
 			<main>
-				{!isLoggedIn && <Login onLogin={loginHandler} />}
+				{!isLoggedIn && <Login2 onLogin={loginHandler} />}
 				{isLoggedIn && <Home onLogout={logoutHandler} />}
 			</main>
 		</>
