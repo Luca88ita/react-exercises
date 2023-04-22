@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState, useRef } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 import styles from './AddUser.module.css';
 import Button from '../UI/Button';
 import ErrorModal from '../UI/ErrorModal';
