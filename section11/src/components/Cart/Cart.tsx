@@ -1,19 +1,48 @@
+import { useContext } from 'react';
+import CartContext from '../../store/cart-context';
 import Modal from '../UI/Modal';
 import styles from './Cart.module.css';
+import CartItem from './CartItem';
 
 interface CartProps {
 	onHideCart: () => void;
 }
+interface Item {
+	name: string;
+	description: string;
+	price: number;
+	amount: number;
+	id: string;
+}
 
 const Cart = (props: CartProps) => {
+	const cartCtx = useContext(CartContext);
+
+	const totalAmount = Intl.NumberFormat('it-IT', {
+		style: 'currency',
+		currency: 'EUR',
+	}).format(cartCtx.totalAmount);
+
+	const hasItems = cartCtx.items.length > 0;
+
+	const cartItemsRemoveHandler = (id: string) => {
+		cartCtx.removeItem(id);
+	};
+	const cartItemsAddHandler = (item: Item) => {
+		cartCtx.addItem({ ...item, amount: 1 });
+	};
+
 	const cartItems = (
 		<ul className={styles['cart-items']}>
-			{[{ id: 'c1', name: 'sushi', amount: 2, price: 12.99 }].map((item) => (
-				<li key={item.id}>
-					<div>{item.name}</div>
-					<div>{item.amount}</div>
-					<div>{item.price}</div>
-				</li>
+			{cartCtx.items.map((item: Item) => (
+				<CartItem
+					key={item.id}
+					name={item.name}
+					amount={item.amount}
+					price={item.price}
+					onRemove={cartItemsRemoveHandler.bind(null, item.id)}
+					onAdd={cartItemsAddHandler.bind(null, item)}
+				/>
 			))}
 		</ul>
 	);
@@ -23,13 +52,13 @@ const Cart = (props: CartProps) => {
 			{cartItems}
 			<div className={styles.total}>
 				<span>Total Amount</span>
-				<span>35.62</span>
+				<span>{totalAmount}</span>
 			</div>
 			<div className={styles.actions}>
 				<button className={styles['button--alt']} onClick={props.onHideCart}>
 					Close
 				</button>
-				<button className={styles.button}>Order</button>
+				{hasItems === true && <button className={styles.button}>Order</button>}
 			</div>
 		</Modal>
 	);
