@@ -9,7 +9,7 @@ interface CartProps {
 }
 interface Item {
 	name: string;
-	description: string;
+	description?: string;
 	price: number;
 	amount: number;
 	id: string;
