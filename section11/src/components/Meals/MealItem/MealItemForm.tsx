@@ -9,7 +9,7 @@ interface MealItemFormProps {
 
 const MealItemForm = (props: MealItemFormProps) => {
 	const [amountIsValid, setAmountIsValid] = useState(true);
-	const amountInputRef = useRef<HTMLInputElement>();
+	const amountInputRef = useRef<HTMLInputElement | null>(null);
 
 	const submitHandler = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

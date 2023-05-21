@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
+
 import { createContext } from 'react';
 
 interface Item {
@@ -9,12 +9,18 @@ interface Item {
 	amount: number;
 	id: string;
 }
+interface ContextProps {
+	readonly items: Item[];
+	readonly totalAmount: number;
+	readonly addItem: (item: Item) => void;
+	readonly removeItem: (id: string) => void;
+}
 
-const CartContext = createContext({
+const CartContext = createContext<ContextProps>({
 	items: [],
 	totalAmount: 0,
-	addItem: (item: Item): void => {},
-	removeItem: (id: string): void => {},
+	addItem: () => {},
+	removeItem: () => {},
 });
 
 export default CartContext;

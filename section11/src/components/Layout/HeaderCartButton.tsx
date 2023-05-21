@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import CartIcon from '../Cart/CartIcon';
 import styles from './HeaderCartButton.module.css';
-import CartContext from '../../store/cart-context';
+import CartContext from '../../store/CartContext';
 
 interface Props {
 	onShowCart: () => void;
@@ -10,7 +10,7 @@ interface Item {
 	name: string;
 	description?: string;
 	price: number;
-	amount?: number;
+	amount: number;
 	id: string;
 }
 const HeaderCartButton = (props: Props) => {
@@ -20,7 +20,7 @@ const HeaderCartButton = (props: Props) => {
 	const { items } = cartCtx;
 
 	const numberOfCartItems = items.reduce((currentNumber, item: Item) => {
-		return currentNumber + item.amount!;
+		return currentNumber + item.amount;
 	}, 0);
 
 	const btnClasses = `${styles.button} ${btinIsHighlighted ? styles.bump : ''}`;
@@ -37,7 +37,7 @@ const HeaderCartButton = (props: Props) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [items]);
+	}, [cartCtx.items.length, items]);
 	return (
 		<button className={btnClasses} onClick={props.onShowCart}>
 			<span className={styles.icon}>

@@ -1,12 +1,12 @@
 import { ReactElement, useReducer } from 'react';
-import CartContext from './cart-context';
+import CartContext from './CartContext';
 
 interface CartProviderProps {
-	children?: ReactElement | ReactElement[] | any;
+	children?: ReactElement | ReactElement[];
 }
 interface Item {
 	name: string;
-	description: string;
+	description?: string;
 	price: number;
 	amount: number;
 	id: string;
