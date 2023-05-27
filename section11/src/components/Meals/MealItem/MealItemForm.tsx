@@ -13,20 +13,19 @@ const MealItemForm = (props: MealItemFormProps) => {
 
 	const submitHandler = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (!amountInputRef.current) throw Error('amountInputRef is not assigned');
-		const enteredAmount = amountInputRef.current.value;
-		const enteredAmountNumber = +enteredAmount;
-
-		if (
-			enteredAmount.trim().length === 0 ||
-			enteredAmountNumber < 1 ||
-			enteredAmountNumber > 5
-		) {
-			setAmountIsValid(false);
-			return;
+		if (amountInputRef.current) {
+			const enteredAmount = amountInputRef.current.value;
+			const enteredAmountNumber = +enteredAmount;
+			if (
+				enteredAmount.trim().length === 0 ||
+				enteredAmountNumber < 1 ||
+				enteredAmountNumber > 5
+			) {
+				setAmountIsValid(false);
+				return;
+			}
+			props.onAddToCart(enteredAmountNumber);
 		}
-
-		props.onAddToCart(enteredAmountNumber);
 	};
 
 	return (
