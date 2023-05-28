@@ -1,52 +1,41 @@
-import { useState } from 'react';
-
 import Section from '../UI/Section';
 import TaskForm from './TaskForm';
-
-interface Task {
-	id: string;
-	text: string;
-}
+import useHttp from '../../hooks/use-http';
+import { Task } from '../../App';
 
 interface Props {
 	onAddTask: (createdTask: Task) => void;
 }
+/*interface TaskData {
+	name: string;
+}*/
 
 const NewTask = (props: Props) => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [error, setError] = useState<string | null>(null);
+	const { isLoading, error, sendRequest: sendTaskRequest } = useHttp();
+
+	const createTask = (taskText: string, taskData: any) => {
+		console.log(taskData);
+		const generatedId: string = taskData.name; // firebase-specific => "name" contains generated id
+		const createdTask: Task = { id: generatedId, text: taskText };
+
+		props.onAddTask(createdTask);
+	};
 
 	const enterTaskHandler = async (taskText: string) => {
-		setIsLoading(true);
-		setError(null);
-		try {
-			const response = await fetch(
-				'https://react-exercises-b6291-default-rtdb.europe-west1.firebasedatabase.app/tasks.json',
-				{
+		const url =
+			'https://react-exercises-b6291-default-rtdb.europe-west1.firebasedatabase.app/tasks.json';
+
+		sendTaskRequest(
+			{
+				url: url,
+				other: {
 					method: 'POST',
-					body: JSON.stringify({ text: taskText }),
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
-
-			if (!response.ok) {
-				throw new Error('Request failed!');
-			}
-
-			const data = await response.json();
-
-			const generatedId = data.name; // firebase-specific => "name" contains generated id
-			const createdTask = { id: generatedId, text: taskText };
-
-			props.onAddTask(createdTask);
-		} catch (err: unknown) {
-			if (err instanceof Error) {
-				setError(err.message || 'Something went wrong!');
-			}
-		}
-		setIsLoading(false);
+					body: { text: taskText },
+					headers: { 'Content-Type': 'application/json' },
+				},
+			},
+			createTask.bind(null, taskText)
+		);
 	};
 
 	return (

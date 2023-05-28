@@ -2,16 +2,16 @@ import { ReactElement } from 'react';
 import Section from '../UI/Section';
 import TaskItem from './TaskItem';
 import classes from './Tasks.module.css';
-
-interface Task {
-	id: string;
-	text: string;
-}
+import { Task } from '../../App';
+import { RequestConfig } from '../../hooks/use-http';
 
 interface Props {
 	items: Task[];
 	error: string | null;
-	onFetch: () => void;
+	onFetch: (
+		requestConfig: RequestConfig,
+		applyData: (data: Task[]) => void
+	) => Promise<void>;
 	loading: boolean;
 }
 
