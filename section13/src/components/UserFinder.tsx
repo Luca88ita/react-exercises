@@ -1,18 +1,9 @@
 import { Component, ChangeEvent, Context, ContextType } from 'react';
 
-import Users from './Users';
+import Users, { UserType } from './Users';
 import classes from './UserFinder.module.css';
-import UsersContext from '../store/users-context';
+import UsersContext, { ContextInterface } from '../store/users-context';
 import ErrorBoundary from './ErrorBoundary';
-
-type UserType = {
-	id: string;
-	name: string;
-};
-
-interface ContextInterface {
-	users: UserType[];
-}
 
 interface State {
 	filteredUsers: UserType[];

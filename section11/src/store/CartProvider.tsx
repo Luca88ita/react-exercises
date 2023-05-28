@@ -1,16 +1,11 @@
 import { ReactElement, useReducer } from 'react';
 import CartContext from './CartContext';
+import { Item } from '../components/Meals/MealItem/MealItem';
 
 interface CartProviderProps {
 	children?: ReactElement | ReactElement[];
 }
-interface Item {
-	name: string;
-	description?: string;
-	price: number;
-	amount: number;
-	id: string;
-}
+
 interface CartState {
 	items: Item[];
 	totalAmount: number;

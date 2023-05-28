@@ -3,7 +3,7 @@ import './App.css';
 import { ReactElement, useCallback, useEffect, useState } from 'react';
 import AddMovie from './components/AddMovie';
 
-interface MovieType {
+export interface MovieType {
 	id: number;
 	title: string;
 	releaseDate: string;
@@ -74,8 +74,7 @@ function App() {
 						'Something went wrong while uploading the movie info!'
 					);
 				}
-				//const data = await response.json();
-				//console.log(data);
+
 				fetchMoviesHandler();
 			} catch (error: unknown) {
 				if (error instanceof Error) {

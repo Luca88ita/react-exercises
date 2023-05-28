@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import { createContext } from 'react';
+import { Item } from '../components/Meals/MealItem/MealItem';
 
-interface Item {
-	name: string;
-	description?: string;
-	price: number;
-	amount: number;
-	id: string;
-}
 interface ContextProps {
 	readonly items: Item[];
 	readonly totalAmount: number;

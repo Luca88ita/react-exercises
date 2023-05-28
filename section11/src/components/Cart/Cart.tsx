@@ -3,16 +3,10 @@ import CartContext from '../../store/CartContext';
 import Modal from '../UI/Modal';
 import styles from './Cart.module.css';
 import CartItem from './CartItem';
+import { Item } from '../Meals/MealItem/MealItem';
 
 interface CartProps {
 	onHideCart: () => void;
-}
-interface Item {
-	name: string;
-	description?: string;
-	price: number;
-	amount: number;
-	id: string;
 }
 
 const Cart = (props: CartProps) => {

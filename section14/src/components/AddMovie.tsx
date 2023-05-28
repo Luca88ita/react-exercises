@@ -1,16 +1,10 @@
 import { FormEvent, useRef } from 'react';
 
 import classes from './AddMovie.module.css';
-
-interface Movie {
-	id: number;
-	title: string;
-	releaseDate: string;
-	openingText: string;
-}
+import { MovieType } from '../App';
 
 interface Props {
-	onAddMovie: (movie: Movie) => void;
+	onAddMovie: (movie: MovieType) => void;
 }
 
 function AddMovie(props: Props) {

@@ -3,7 +3,7 @@ import User from './User';
 
 import classes from './Users.module.css';
 
-type UserType = {
+export type UserType = {
 	id: string;
 	name: string;
 };
@@ -11,6 +11,7 @@ type UserType = {
 interface State {
 	showUsers: boolean;
 }
+
 interface Props {
 	users: UserType[];
 }

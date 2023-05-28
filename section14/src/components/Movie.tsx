@@ -1,12 +1,7 @@
+import { MovieType } from '../App';
 import classes from './Movie.module.css';
 
-interface Props {
-	title: string;
-	releaseDate: string;
-	openingText: string;
-}
-
-const Movie = (props: Props) => {
+const Movie = (props: MovieType) => {
 	return (
 		<li className={classes.movie}>
 			<h2>{props.title}</h2>

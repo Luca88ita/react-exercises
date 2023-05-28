@@ -2,17 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import CartIcon from '../Cart/CartIcon';
 import styles from './HeaderCartButton.module.css';
 import CartContext from '../../store/CartContext';
+import { Item } from '../Meals/MealItem/MealItem';
 
 interface Props {
 	onShowCart: () => void;
 }
-interface Item {
-	name: string;
-	description?: string;
-	price: number;
-	amount: number;
-	id: string;
-}
+
 const HeaderCartButton = (props: Props) => {
 	const [btinIsHighlighted, setBtinIsHighlighted] = useState(false);
 	const cartCtx = useContext(CartContext);

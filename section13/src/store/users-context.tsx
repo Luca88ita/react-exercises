@@ -1,14 +1,11 @@
 import { createContext } from 'react';
+import { UserType } from '../components/Users';
 
-type UserType = {
-	id: string;
-	name: string;
-};
-type ContextType = {
+export interface ContextInterface {
 	users: UserType[];
-};
+}
 
-const UsersContext = createContext<ContextType>({
+const UsersContext = createContext<ContextInterface>({
 	users: [],
 });
 

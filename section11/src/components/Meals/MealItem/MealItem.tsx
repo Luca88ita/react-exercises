@@ -3,11 +3,11 @@ import styles from './MealItem.module.css';
 import MealItemForm from './MealItemForm';
 import CartContext from '../../../store/CartContext';
 
-interface Item {
+export interface Item {
 	name: string;
 	description?: string;
 	price: number;
-	amount?: number;
+	amount: number;
 	id: string;
 }
 
