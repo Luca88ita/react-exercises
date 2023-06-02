@@ -8,6 +8,7 @@ interface ContextProps {
 	readonly totalAmount: number;
 	readonly addItem: (item: Item) => void;
 	readonly removeItem: (id: string) => void;
+	readonly clearCart: () => void;
 }
 
 const CartContext = createContext<ContextProps>({
@@ -15,6 +16,7 @@ const CartContext = createContext<ContextProps>({
 	totalAmount: 0,
 	addItem: () => {},
 	removeItem: () => {},
+	clearCart: () => {},
 });
 
 export default CartContext;

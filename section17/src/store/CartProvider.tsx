@@ -13,7 +13,7 @@ interface CartState {
 interface CartAction {
 	item?: Item;
 	id?: string;
-	type: 'ADD' | 'REMOVE';
+	type: 'ADD' | 'REMOVE' | 'CLEAR';
 }
 
 const defaultCartState: CartState = {
@@ -23,11 +23,11 @@ const defaultCartState: CartState = {
 
 const cartReducer = (state: CartState, action: CartAction) => {
 	if (action.type === 'ADD') {
-		if (action.item && action.item !== undefined) {
+		if (action.item) {
 			const updatedTotalAmount =
 				state.totalAmount + action.item.price * action.item.amount;
 			const existingCartItemIndex = state.items.findIndex(
-				(item) => item.id === action.item!.id
+				(item) => action.item && item.id === action.item.id
 			);
 
 			const existingCartItem = state.items[existingCartItemIndex];
@@ -74,6 +74,9 @@ const cartReducer = (state: CartState, action: CartAction) => {
 			totalAmount: updatedTotalAmount,
 		};
 	}
+	if (action.type === 'CLEAR') {
+		return defaultCartState;
+	}
 	return defaultCartState;
 };
 
@@ -88,12 +91,16 @@ const CartProvider = (props: CartProviderProps) => {
 	const removeItemFromCartHandler = (id: string) => {
 		dispatchCartAction({ type: 'REMOVE', id: id });
 	};
+	const clearCartHandler = () => {
+		dispatchCartAction({ type: 'CLEAR' });
+	};
 
 	const cartContext = {
 		items: cartState.items,
 		totalAmount: cartState.totalAmount,
 		addItem: addItemToCartHandler,
 		removeItem: removeItemFromCartHandler,
+		clearCart: clearCartHandler,
 	};
 
 	return (
