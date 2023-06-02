@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
-import { Task } from '../App';
+import { Item } from '../components/Meals/MealItem/MealItem';
 
 export interface RequestConfig {
 	url: string;
 	other?: {
 		method: 'POST' | 'GET';
-		body: object | { text: string };
+		body: object | { order: string };
 		headers: {
 			'Content-Type': 'application/json';
 		};
@@ -17,7 +17,7 @@ const useHttp = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	const sendRequest = useCallback(
-		async (requestConfig: RequestConfig, applyData: (data: Task[]) => void) => {
+		async (requestConfig: RequestConfig, applyData: (data: Item[]) => void) => {
 			setIsLoading(true);
 			setError(null);
 			try {
