@@ -1,19 +1,39 @@
+import { useDispatch } from 'react-redux';
 import classes from './CartItem.module.css';
+import { cartActions } from '../../store/cart-slice';
 
-interface CartItem {
-	item: {
-		title: string;
-		quantity: number;
-		total: number;
-		price: number;
-	};
+export interface CartItemInterface {
+	id: string;
+	title: string;
+	quantity: number;
+	total: number;
+	price: number;
 }
 
-const CartItem = (props: CartItem) => {
-	const { title, quantity, total, price } = props.item;
+export interface CartInterface {
+	item: CartItemInterface;
+}
+
+const CartItem = (props: CartInterface) => {
+	const dispatch = useDispatch();
+
+	const { id, title, quantity, total, price } = props.item;
+
+	const removeItemHandler = () => {
+		dispatch(cartActions.removeItemToCart(id));
+	};
+	const addItemHandler = () => {
+		dispatch(
+			cartActions.addItemToCart({
+				id,
+				title,
+				price,
+			})
+		);
+	};
 
 	return (
-		<li className={classes.item}>
+		<li className={classes.item} key={id}>
 			<header>
 				<h3>{title}</h3>
 				<div className={classes.price}>
@@ -26,8 +46,8 @@ const CartItem = (props: CartItem) => {
 					x <span>{quantity}</span>
 				</div>
 				<div className={classes.actions}>
-					<button>-</button>
-					<button>+</button>
+					<button onClick={removeItemHandler}>-</button>
+					<button onClick={addItemHandler}>+</button>
 				</div>
 			</div>
 		</li>
